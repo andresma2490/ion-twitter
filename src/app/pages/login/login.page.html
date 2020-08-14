@@ -1,0 +1,18 @@
+<ion-content>
+    <ion-card style="margin: 2rem; padding: 2rem;">
+        <form (ngSubmit)="login()" class="ion-text-center">
+            <ion-item>
+              <ion-input type="text" [(ngModel)]="email" name="email" placeholder="email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="password" [(ngModel)]="password" name="password" placeholder="password"></ion-input>
+            </ion-item>
+            <br/>
+            <ion-button type="submit" expand="block">
+                login
+            </ion-button>
+            <br/>
+            or <a routerLink="/sign-up">sign up</a>
+        </form>
+    </ion-card>
+</ion-content>
