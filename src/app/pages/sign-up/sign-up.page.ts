@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-sign-up',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sign-up.page.scss'],
 })
 export class SignUpPage implements OnInit {
+  newUser = {} as User;
+  password:string;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private userService:UserService){
   }
 
+  ngOnInit(){
+  }
+
+  signUp(){
+    this.userService.signUp(this.newUser, this.password);
+  }
 }

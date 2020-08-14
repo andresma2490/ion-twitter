@@ -1,14 +1,14 @@
 <ion-content>
     <ion-card style="margin: 2rem; padding: 2rem;">
-        <form (ngSubmit)="logForm()" class="ion-text-center">
+        <form (ngSubmit)="signUp()" class="ion-text-center">
             <ion-item>
-                <ion-input type="text" [(ngModel)]="user.username" name="username" placeholder="username"></ion-input>
+                <ion-input type="text" [(ngModel)]="newUser.username" name="username" placeholder="username"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input type="text" [(ngModel)]="user.email" name="email" placeholder="email"></ion-input>
+              <ion-input type="text" [(ngModel)]="newUser.email" name="email" placeholder="email"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder="password"></ion-input>
+              <ion-input type="password" [(ngModel)]="password" name="password" placeholder="password"></ion-input>
             </ion-item>
             <br/>
             <ion-button type="submit" expand="block">

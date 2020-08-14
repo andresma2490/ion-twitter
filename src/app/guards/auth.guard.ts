@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await this.userService.getUser();
+        const user = await this.userService.isAuth();
         if (user) {
           resolve(true);
         } else {
