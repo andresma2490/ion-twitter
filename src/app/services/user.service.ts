@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth'
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   
-  constructor(private AngularFireAuth:AngularFireAuth,
+  constructor(private angularFireAuth:AngularFireAuth,
     private router:Router,
     private toastController: ToastController){
     
@@ -24,13 +25,12 @@ export class UserService {
     toast.present();
   }
 
-  isAuth(){
-    // To do
-    return true;
+  getUser(): Promise<firebase.User> {
+    return this.angularFireAuth.authState.pipe(first()).toPromise();
   }
 
   signUp(email:string, password:string){
-    this.AngularFireAuth.auth.createUserWithEmailAndPassword(email, password)
+    this.angularFireAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(user =>{
         this.presentToast('user created', 'success')
         this.router.navigate(['/home']);
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   login(email:string, password:string){
-    this.AngularFireAuth.auth.signInWithEmailAndPassword(email, password)
+    this.angularFireAuth.auth.signInWithEmailAndPassword(email, password)
       .then(user =>{
         this.router.navigate(['/home']);
       })
@@ -51,7 +51,7 @@ export class UserService {
   }
 
   logout(){
-    this.AngularFireAuth.auth.signOut();
+    this.angularFireAuth.auth.signOut();
     this.router.navigate(['/login']);
   }
 }

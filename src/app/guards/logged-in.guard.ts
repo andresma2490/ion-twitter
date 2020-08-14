@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +14,25 @@ export class LoggedInGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(!this.userService.isAuth()){
-        return true;
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await this.userService.getUser();
+        if (!user) {
+          resolve(true);
+        } else {
+          reject('you are already logged in');
+          this.router.navigateByUrl('/home');
+        }
+      } catch (error) {
+        reject(error);
       }
-      else{
-        this.router.navigate(['/home']);
-        return false;
-      }
+    });
   }
   
 }
