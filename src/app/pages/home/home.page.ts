@@ -1,26 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Tweet } from '../../models/tweet';
+import { TweetService } from '../../services/tweet.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  tweets = [
-    {
-      avatar:'',
-      author:'',
-      description:'this is a tweet',
-      image:''
-    },
-    {
-      avatar:'',
-      author:'',
-      description:'this is a tweet',
-      image:''
-    },{},{}
-  ]
+export class HomePage implements OnInit{
+  newTweet = {} as Tweet;
+  tweets = [];
 
-  constructor() {}
+  constructor(private tweetService:TweetService){
+  }
 
+  ngOnInit(): void {
+    this.tweetService.getTweets().subscribe(tweets =>{
+      this.tweets = tweets;      
+    });
+  }
 }
