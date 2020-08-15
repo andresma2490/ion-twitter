@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
 import { Tweet } from '../models/tweet';
 
 @Injectable({
@@ -12,8 +13,10 @@ export class TweetService {
   tweetCollection: AngularFirestoreCollection;
   tweetDocument: AngularFirestoreDocument;
   tweets: Observable<Tweet[]>;
+  urlImage: Observable<string>;
+  userDocument;
 
-  constructor(private db:AngularFirestore, private userService:UserService){
+  constructor(private db:AngularFirestore, private storage:AngularFireStorage, private userService:UserService){
     this.tweetCollection = db.collection('tweets');
     this.tweets = this.tweetCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
@@ -21,7 +24,7 @@ export class TweetService {
         data.id = a.payload.doc.id;
          return data;
       });
-    }));
+    }));    
   } 
 
   getTweets(){
@@ -46,6 +49,15 @@ export class TweetService {
   deleteTweet(tweet:Tweet){
     this.tweetDocument = this.db.doc(`tweets/${tweet.id}`);
     this.tweetDocument.delete(); 
+  }
+
+  onUpload(event){
+    const file = event.target.files[0];
+    const storageRef = this.storage.ref(`/tweets/${ file.name }`);
+    const task = storageRef.put(file);
+    task.snapshotChanges().pipe(finalize(() => this.urlImage = storageRef.getDownloadURL())).subscribe();
+    
+    return this.urlImage;
   }
 
   likeTweet(tweet:Tweet){

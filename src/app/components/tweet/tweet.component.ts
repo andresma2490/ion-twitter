@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Tweet } from 'src/app/models/tweet';
 import { TweetService } from 'src/app/services/tweet.service';
 import { UserService } from 'src/app/services/user.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { map, finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tweet',
@@ -12,8 +15,9 @@ export class TweetComponent implements OnInit {
   @Input() tweet:Tweet;
   editing:boolean;
   likeButton:boolean;
+  urlImage: Observable<string>;
 
-  constructor(private tweetService:TweetService, private userService:UserService){
+  constructor(private tweetService:TweetService, private userService:UserService, private storage:AngularFireStorage){
   }
 
   ngOnInit(){
@@ -70,6 +74,20 @@ export class TweetComponent implements OnInit {
     if(window.confirm('are you sure?')){
       this.tweetService.deleteTweet(this.tweet);
     }
+  }
+
+  onUpload(event){
+    const file = event.target.files[0];
+    const storageRef = this.storage.ref(`/tweets/${ file.name }`);
+    const task = this.storage.upload(`/tweets/${ file.name }`, file);
+    task.snapshotChanges()
+      .pipe(
+        finalize(() => {
+          storageRef.getDownloadURL().subscribe(urlImage =>{
+            this.tweet.image = urlImage;
+          })
+        })
+      ).subscribe()
   }
 
 }

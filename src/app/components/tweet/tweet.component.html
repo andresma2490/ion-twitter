@@ -15,7 +15,7 @@
           </ion-card-header>
       
           <ion-card-content>
-            <img *ngIf="tweet.image" src="tweet.image" alt="tweet_image">            
+            <img *ngIf="tweet.image" src={{tweet.image}} alt="tweet_image">            
             <br/>
             <ion-button *ngIf="isAuthor()" color="primary" (click)="editing=!editing">
               <ion-icon name="create-outline"></ion-icon>
@@ -43,14 +43,16 @@
                   <ion-textarea [(ngModel)]="tweet.description" name="description" placeholder="What is happening?"></ion-textarea>
               </ion-item>
               <br/>
-              <img *ngIf="tweet.image" src="tweet.image" alt="tweet_image">            
+              <img *ngIf="tweet.image" src={{tweet.image}} alt="tweet_image">            
               <br/>
-              <ion-button type="submit">
+              <ion-button type="submit" style="margin-bottom: 2rem;">
                 tweet!
               </ion-button>
-              <ion-button color="medium">
-                <ion-icon name="image-outline"></ion-icon>
-              </ion-button>
+
+              <label>
+                <ion-icon name="image-outline" style="height: 2rem; width: 2rem;"></ion-icon>
+                <input type="file" acept=".png, .jpg" (change)="onUpload($event)" hidden/>
+              </label>
             </form>    
           </ion-card-content>
         </div>
