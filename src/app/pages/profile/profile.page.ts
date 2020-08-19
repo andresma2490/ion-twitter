@@ -13,9 +13,4 @@ export class ProfilePage implements OnInit {
 
   ngOnInit(){
   }
-
-  logout(){
-    this.userService.logout()
-  }
-
 }

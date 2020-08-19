@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-navigation',
@@ -6,9 +9,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
+  options = [
+    {
+      icon:"home",
+      name:"home",
+      redirectTo:"/home"
+    },
+    {
+      icon: 'person',
+      name: 'profile',
+      redirectTo: '/profile'
+    }
+  ]
 
-  constructor() { }
+  // ToDo
+  authorized:boolean = true;
 
-  ngOnInit() {}
+  constructor(public menuController:MenuController, private userService:UserService) {
+  }
 
+  ngOnInit() {
+    
+  }
+
+  logout(){
+    this.userService.logout()
+  }
+
+  openMenu() {
+    this.menuController.open('nav')
+  }
 }

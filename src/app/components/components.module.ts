@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+
 import { NavigationComponent } from './navigation/navigation.component';
 import { TweetComponent } from './tweet/tweet.component';
 
@@ -18,7 +20,8 @@ import { TweetComponent } from './tweet/tweet.component';
   imports: [
     CommonModule,
     IonicModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ]
 })
 export class ComponentsModule { }

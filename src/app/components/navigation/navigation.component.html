@@ -1,5 +1,36 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>ion-tweet</ion-title>
+
+    <ion-buttons slot="start" *ngIf="authorized">
+      <ion-button (click)="openMenu()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>
+      Ion Twitter
+    </ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-menu side="start" menuId="nav" contentId="main" *ngIf="authorized">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+
+      <ion-menu-toggle *ngFor="let opt of options">
+        <ion-item [routerLink]="[opt.redirectTo]">
+          <ion-icon slot="start" [name]="opt.icon"></ion-icon>
+          <ion-label>{{ opt.name }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+        <ion-button (click)="logout()" expand="block">
+          Logout
+        </ion-button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
