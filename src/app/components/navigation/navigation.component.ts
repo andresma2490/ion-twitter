@@ -22,6 +22,8 @@ export class NavigationComponent implements OnInit {
     }
   ]
 
+  show:boolean = true;
+
   // ToDo
   authorized:boolean = true;
 
@@ -37,6 +39,8 @@ export class NavigationComponent implements OnInit {
   }
 
   openMenu() {
+    this.show = !this.show;
+    this.menuController.enable(this.show, 'nav');
     this.menuController.open('nav')
   }
 }
