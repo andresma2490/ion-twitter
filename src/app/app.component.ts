@@ -3,7 +3,6 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { UserService } from '@app/users/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,24 +10,11 @@ import { UserService } from '@app/users/services/user.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  options = [
-    {
-      icon:"home",
-      name:"home",
-      redirectTo:"/home"
-    },
-    {
-      icon: 'person',
-      name: 'profile',
-      redirectTo: '/profile'
-    }
-  ]
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private userService:UserService
   ) {
     this.initializeApp();
   }
@@ -38,9 +24,5 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-  }
-
-  logout(){
-    this.userService.logout()
   }
 }

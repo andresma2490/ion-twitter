@@ -6,7 +6,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./users/users-routing.module').then( m => m.UserRoutingModule ),
+    loadChildren: () => import('./users/users.module').then( m => m.UsersModule ),
   },
   {
     path: '',

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 
@@ -12,7 +13,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     NavigationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    IonicModule
   ]
 })
 export class SharedModule { }

@@ -1,28 +1,4 @@
 <ion-app>    
-    <ion-split-pane when="md" contentId="main-content">
-        <ion-menu side="start" menuId="nav" contentId="main-content">
-            <ion-header>
-              <ion-toolbar color="primary">
-                <ion-title>Menu</ion-title>
-              </ion-toolbar>
-            </ion-header>
-            <ion-content>
-              <ion-list>
-          
-                <ion-menu-toggle autoHide="false" *ngFor="let opt of options">
-                  <ion-item [routerLink]="[opt.redirectTo]">
-                    <ion-icon slot="start" [name]="opt.icon"></ion-icon>
-                    <ion-label>{{ opt.name }}</ion-label>
-                  </ion-item>
-                </ion-menu-toggle>
-
-                  <ion-button id="logout" (click)="logout()" expand="block" >
-                    Logout
-                  </ion-button>
-              </ion-list>
-            </ion-content>
-          </ion-menu>
-      <ion-router-outlet id="main-content"></ion-router-outlet>
-    </ion-split-pane>
-  </ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>
   

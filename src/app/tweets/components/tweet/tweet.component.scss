@@ -1,0 +1,14 @@
+.tweet-component{
+    width: 100%;
+
+    @media screen and (min-width: 576px){
+        width: 30rem;
+    }
+}
+
+.add-img{
+    height: 2.3rem; 
+    width: 2.3rem;
+    position: absolute;
+    cursor: pointer;
+}
