@@ -1,34 +1,20 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './guards/auth.guard';
-import { LoggedInGuard } from './guards/logged-in.guard';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    loadChildren: () => import('./users/users-routing.module').then( m => m.UserRoutingModule ),
   },
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
-    canActivate: [AuthGuard]
+    path: '',
+    loadChildren: () => import('./auth/auth-routing.module').then( m => m.AuthRoutingModule ),
   },
   {
-    path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    canActivate: [LoggedInGuard]
-  },
-  {
-    path: 'sign-up',
-    loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule),
-    canActivate: [LoggedInGuard]
+    path:'**',
+    component: PageNotFoundComponent
   }
 ];
 
